@@ -9,13 +9,12 @@
  * Module dependencies.
  */
 
-require.paths.unshift(__dirname + '/koala/lib');
 var sys = require('sys'),
     fs = require('fs'),
     path = require('path'),
     koala = require('koala'),
     utils = require('./utils'),
-    markdown = require('./markdown/lib/markdown');
+    markdown = require('markdown');
 
 /**
  * Library version.
@@ -259,7 +258,7 @@ var render = exports.render = function(str, file){
             
             // Support @ignore and --private
             if (utils.ignore(part) || (utils.isPrivate(part) && !showPrivate)) continue;
-            var part = part.replace(/^ *\* ?/gm, '');
+            part = part.replace(/^[ \t]*\* ?/gm, '');
             blocks.push({
                comment: markdown.toHTML(utils.toMarkdown(part)),
                code: koala.render(".js", utils.escape(next)) 
